@@ -7,15 +7,20 @@ package com.stuypulse.robot;
 
 import com.stuypulse.robot.commands.auton.DoNothingAuton;
 import com.stuypulse.robot.commands.climber.ClimberDrive;
+import com.stuypulse.robot.commands.leds.LEDAlign;
 import com.stuypulse.robot.commands.swerve.SwerveDriveDrive;
+import com.stuypulse.robot.commands.swerve.SwerveDriveToPose;
+import com.stuypulse.robot.constants.Field;
 import com.stuypulse.robot.constants.Ports;
 import com.stuypulse.robot.constants.Settings;
+import com.stuypulse.robot.constants.Settings.LED;
 import com.stuypulse.robot.subsystems.amper.Amper;
 import com.stuypulse.robot.subsystems.odometry.Odometry;
 import com.stuypulse.robot.subsystems.swerve.SwerveDrive;
 import com.stuypulse.robot.subsystems.vision.AprilTagVision;
 import com.stuypulse.robot.subsystems.vision.NoteVision;
 import com.stuypulse.robot.subsystems.intake.Intake;
+import com.stuypulse.robot.subsystems.leds.LEDController;
 import com.stuypulse.robot.subsystems.shooter.Shooter;
 import com.stuypulse.robot.subsystems.conveyor.Conveyor;
 import com.stuypulse.stuylib.input.Gamepad;
@@ -35,16 +40,17 @@ public class RobotContainer {
     public final Gamepad operator = new AutoGamepad(Ports.Gamepad.OPERATOR);
     
     // Subsystem
-    public final Climber climber = Climber.getInstance();
-    public final Amper amper = Amper.getInstance();
+  
+    //public final Climber climber = Climber.getInstance();
+    //public final Amper amper = Amper.getInstance();
     public final SwerveDrive swerve = SwerveDrive.getInstance();
     public final Odometry odometry = Odometry.getInstance();
-    public final AprilTagVision vision = AprilTagVision.getInstance();
-    public final NoteVision noteVision = NoteVision.getInstance();
-    public final Intake intake = Intake.getInstance();
-    public final Shooter shooter = Shooter.getInstance();
-    public final Conveyor conveyor = Conveyor.getInstance();
-  
+    public final LEDController leds = LEDController.getInstance();
+    //public final AprilTagVision vision = AprilTagVision.getInstance();
+    //public final NoteVision noteVision = NoteVision.getInstance();
+    //public final Intake intake = Intake.getInstance();
+    //public final Shooter shooter = Shooter.getInstance();
+    //public final Conveyor conveyor = Conveyor.getInstance();
     // Autons
     private static SendableChooser<Command> autonChooser = new SendableChooser<>();
 
@@ -70,8 +76,10 @@ public class RobotContainer {
 
     private void configureButtonBindings() {
         // manual climber control
-        new Trigger(() -> operator.getLeftStick().magnitude() > Settings.Operator.DEADBAND.get())
-            .whileTrue(new ClimberDrive(operator));
+        //new Trigger(() -> operator.getLeftStick().magnitude() > Settings.Operator.DEADBAND.get())
+        //    .whileTrue(new ClimberDrive(operator));
+    
+        driver.getLeftButton().whileTrue(new SwerveDriveToPose(Field.getAllianceSpeakerPose()));
     }
 
     /**************/

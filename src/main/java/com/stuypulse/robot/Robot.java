@@ -38,6 +38,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void disabledPeriodic() {
+        /*
         if (robot.intake.hasNote()) {
             DriverStation.reportWarning("Intake IR sensor reporting note while disabled!", false);
         }
@@ -49,6 +50,7 @@ public class Robot extends TimedRobot {
         if (robot.conveyor.isNoteAtShooter()) {
             DriverStation.reportWarning("Shooter IR sensor reporting note while disabled!", false);
         }
+        */
     }
 
     /***********************/

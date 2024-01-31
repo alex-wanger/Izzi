@@ -53,7 +53,7 @@ LEDSet.java (the command you use to set LEDS)
 LEDAlign.java (odometry, streaming, tbd)
  */
 public class LEDController extends SubsystemBase {
-    private static LEDController instance; 
+    private static final LEDController instance; 
 
     static {
         instance = new LEDController();
@@ -62,35 +62,10 @@ public class LEDController extends SubsystemBase {
     public static LEDController getInstance() {
         return instance;
     }
-    
-    private AddressableLED leds;
-    private AddressableLEDBuffer ledsBuffer;
 
-    public LEDController() {
-        leds = new AddressableLED(Ports.LEDController.PORT);
-        ledsBuffer = new AddressableLEDBuffer(Settings.LED.LED_LENGTH); 
-
-        leds.setLength(ledsBuffer.getLength());
-        leds.setData(ledsBuffer);
-        leds.start();
-
-        SmartDashboard.putData(instance);
-    }
-
+    private LEDController() {}
 
     public void forceSetLED(LEDInstruction instruction) {
-        instruction.setLED(ledsBuffer);
-        leds.setData(ledsBuffer);
-    }
 
-    public LEDInstruction getDefaultColor() {
-        return LEDColor.RED;
-    }
-
-    @Override
-    public void periodic() {
-        if (RobotBase.isReal()) {
-            forceSetLED(getDefaultColor());
-        }
     }
 }
